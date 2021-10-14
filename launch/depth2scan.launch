@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- depthimage_to_laserscan -->
+    <node pkg="nodelet" type="nodelet" name="depth_manager" args="manager" />
+    <!-- run laserscan_to_pointcloud nodelet -->
+    <node pkg="nodelet" type="nodelet" name="depth_to_laserscan" args="load depthimage_to_laserscan/DepthImageToLaserScanNodelet depth_manager">
+         <!--<remap from="output_frame_id" to="camera_depth_frame"/> -->
+        <!-- <remap from="camera_depth_frame" to="depth_camera_link"/> -->
+	      <remap from="image" to="camera/depth/image_rect_raw"/>
+          <remap from="scan" to="depth2scan"/>
+	      <remap from="camera_info" to="camera/depth/camera_info"/>
+    </node>
+    <node name = "temp_frame" pkg="tf" type="static_transform_publisher" args="0.21 0 0 0 0 0 base camera_depth_frame 100"/> 
+</launch>

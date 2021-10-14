@@ -109,9 +109,12 @@ sensor_msgs::LaserScanPtr DepthImageToLaserScan::convert_msg(const sensor_msgs::
   // Fill in laserscan message
   sensor_msgs::LaserScanPtr scan_msg(new sensor_msgs::LaserScan());
   scan_msg->header = depth_msg->header;
-  if(output_frame_id_.length() > 0){
-    scan_msg->header.frame_id = output_frame_id_;
-  }
+  // Ryan Edit
+  scan_msg->header.stamp = ros::Time(0);
+  scan_msg->header.frame_id = "base";
+  // if(output_frame_id_.length() > 0){
+  //  scan_msg->header.frame_id = output_frame_id_;
+  //}
   scan_msg->angle_min = angle_min;
   scan_msg->angle_max = angle_max;
   scan_msg->angle_increment = (scan_msg->angle_max - scan_msg->angle_min) / (depth_msg->width - 1);

@@ -44,7 +44,7 @@ DepthImageToLaserScanROS::DepthImageToLaserScanROS(ros::NodeHandle& n, ros::Node
   srv_.setCallback(f);
 
   // Lazy subscription to depth image topic
-  pub_ = n.advertise<sensor_msgs::LaserScan>("scan", 10, boost::bind(&DepthImageToLaserScanROS::connectCb, this, _1), boost::bind(&DepthImageToLaserScanROS::disconnectCb, this, _1));
+  pub_ = n.advertise<sensor_msgs::LaserScan>("depth2scan", 10, boost::bind(&DepthImageToLaserScanROS::connectCb, this, _1), boost::bind(&DepthImageToLaserScanROS::disconnectCb, this, _1));
 }
 
 DepthImageToLaserScanROS::~DepthImageToLaserScanROS(){
@@ -86,6 +86,6 @@ void DepthImageToLaserScanROS::disconnectCb(const ros::SingleSubscriberPublisher
 void DepthImageToLaserScanROS::reconfigureCb(depthimage_to_laserscan::DepthConfig& config, uint32_t level){
     dtl_.set_scan_time(config.scan_time);
     dtl_.set_range_limits(config.range_min, config.range_max);
-    dtl_.set_scan_height(config.scan_height);
+    dtl_.set_scan_height(200); // config.scan_height
     dtl_.set_output_frame(config.output_frame_id);
 }
