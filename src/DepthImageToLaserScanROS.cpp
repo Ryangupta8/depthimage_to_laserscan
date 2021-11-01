@@ -58,6 +58,7 @@ void DepthImageToLaserScanROS::depthCb(const sensor_msgs::ImageConstPtr& depth_m
   try
   {
     sensor_msgs::LaserScanPtr scan_msg = dtl_.convert_msg(depth_msg, info_msg);
+    scan_msg->header.stamp = ros::Time::now();
     pub_.publish(scan_msg);
   }
   catch (std::runtime_error& e)
