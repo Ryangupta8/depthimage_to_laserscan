@@ -111,7 +111,7 @@ sensor_msgs::LaserScanPtr DepthImageToLaserScan::convert_msg(const sensor_msgs::
   scan_msg->header = depth_msg->header;
   // Ryan Edit
   scan_msg->header.stamp = ros::Time(0);
-  scan_msg->header.frame_id = "base";
+  scan_msg->header.frame_id = "camera_depth_frame";
   // if(output_frame_id_.length() > 0){
   //  scan_msg->header.frame_id = output_frame_id_;
   //}
